@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>AnimalCafe</title>
+
+	<!--Bootstrap 5 + JS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!--navbar-->
+	<nav class="navbar navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand"><b>AnimalCafe</b></a>
+
+			<form class="d-flex" th:action="@{/}">
+				<input class="form-control me-2" type="text" name="keyword" id="keyword" size="50"
+					th:value="${keyword}" />
+				<input type="submit" class="btn btn-primary" value="ค้นหา" />&nbsp;<input type="button" class="btn btn-danger" value="ล้างค่า" onclick="clearSearch()"/>
+			</form>
+
+		</div>
+	</nav>
+
+	<!--Main-->
+	<div class="container">
+		<br />
+		<table class="table table-hover">
+			<thead class="table">
+				<tr class="text-center">
+					<th>ชื่อสัตว์</th>
+					<th>รายละเอียดน้อง</th>
+					<th>ค่าตัว (บาท)</th>
+					<th>รูปของน้องๆ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tmpProduct : ${product}">
+					<td th:text="${tmpProduct.productname}"></td>
+					<td th:text="${tmpProduct.productdescription}"></td>
+					<td th:text="${tmpProduct.productprice}" style="text-align: center"></td>
+					<td>
+						<center>
+							<img th:src="@{'/image/' + ${tmpProduct.productimage}}" style="width: 200px; height: auto" />
+						</center>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<!-- Clear BoxSearch-->
+	<script type="text/javascript">
+        function clearSearch() {
+            window.location = "[[@{/}]]";
+        }
+    </script>
+</body>
+
+</html>
